@@ -73,7 +73,7 @@
 	function autoScrollAndCollect() {
 		function scrollPage() {
 			if (!scrolling) return; // Stop if scrolling is false
-			height = initalHeight * 0.25;
+			height = initalHeight * 1.5;
 			window.scrollBy({
 				top: height,
 				behavior: 'smooth',
