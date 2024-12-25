@@ -18,6 +18,13 @@ function App() {
 			});
 
 			if (!response.ok) {
+				// Check Retry-After header for rate limitation
+				if (response.status === 429) {
+					const retryAfter = parseInt(response.headers.get('Retry-After') || '1', 10) * 1000;
+					console.warn(`Rate limited. Retrying after ${retryAfter}ms.`);
+					await new Promise((resolve) => setTimeout(resolve, retryAfter));
+					return await sendToDiscord(content); // Retry
+				}
 				throw new Error('Failed to send message');
 			}
 
