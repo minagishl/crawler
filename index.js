@@ -1,6 +1,7 @@
 (function () {
 	// Variable to hold saved URLs
 	const savedUrls = new Set();
+	let scrolling = true; // Flag to control scrolling
 
 	function getElementByAriaLabel() {
 		const element = document.querySelector('[aria-label="タイムライン: ホームタイムライン"]');
@@ -59,10 +60,8 @@
 	}
 
 	function autoScrollAndCollect() {
-		let scrolling = true;
-
 		function scrollPage() {
-			if (!scrolling) return;
+			if (!scrolling) return; // Stop if scrolling is false
 			window.scrollBy(0, window.innerHeight);
 			setTimeout(() => {
 				getElementByAriaLabel();
@@ -74,14 +73,15 @@
 
 		// Message to provide stop functionality
 		console.log(
-			'Auto-scrolling and collecting started. To stop, set `scrolling` to false in the console.'
+			'Auto-scrolling and collecting started. To stop, call `stopAutoScroll()` in the console.'
 		);
 	}
 
-	function stopScrolling() {
+	// Method to stop auto-scrolling
+	window.stopAutoScroll = function () {
 		scrolling = false;
-		console.log('Auto-scrolling and collecting stopped.');
-	}
+		console.log('Auto-scrolling stopped.');
+	};
 
 	// Start the process
 	autoScrollAndCollect();
