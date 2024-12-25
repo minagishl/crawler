@@ -11,6 +11,8 @@
 	// Variable to hold saved URLs
 	const savedUrls = new Set();
 	let scrolling = true; // Flag to control scrolling
+	const initalHeight = window.innerHeight;
+	let height = initalHeight;
 
 	function getElementByAriaLabel() {
 		const element = document.querySelector('[aria-label="タイムライン: ホームタイムライン"]');
@@ -71,7 +73,11 @@
 	function autoScrollAndCollect() {
 		function scrollPage() {
 			if (!scrolling) return; // Stop if scrolling is false
-			window.scrollBy(0, window.innerHeight);
+			height = initalHeight * 0.5;
+			window.scrollBy({
+				top: height,
+				behavior: 'smooth',
+			});
 			setTimeout(() => {
 				getElementByAriaLabel();
 				scrollPage();
