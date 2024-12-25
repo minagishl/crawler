@@ -1,6 +1,6 @@
 (function () {
 	// Verify if the URL is correct before starting
-	if (window.location.href !== 'https://x.com/home') {
+	if (!window.location.href.startsWith('https://x.com/home')) {
 		console.error(
 			'Script can only be run on https://x.com/home. Current URL:',
 			window.location.href
